@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Zexplore GeoConsult | Better Foundations. Better Future.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy: #0a1628;
+      --blue: #1a4b8c;
+      --sky: #2d7dd2;
+      --accent: #4aa8e0;
+      --light: #e8f2fb;
+      --white: #ffffff;
+      --gray: #6b7a90;
+      --text: #1c2b3a;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: rgba(10,22,40,0.96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo-icon {
+      width: 40px; height: 40px;
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: #fff;
+      font-family: 'Playfair Display', serif;
+    }
+    .nav-logo-text { color: #fff; font-size: 17px; font-weight: 600; letter-spacing: 0.3px; }
+    .nav-logo-text span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75); text-decoration: none;
+      font-size: 14px; font-weight: 500; letter-spacing: 0.5px;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-cta {
+      background: var(--sky); color: #fff;
+      padding: 9px 22px; border-radius: 6px;
+      text-decoration: none; font-size: 14px; font-weight: 600;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(160deg, rgba(10,22,40,0.92) 0%, rgba(26,75,140,0.85) 60%, rgba(45,125,210,0.7) 100%),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 120px 5% 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; bottom: -2px; left: 0; right: 0;
+      height: 80px;
+      background: var(--white);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74,168,224,0.15);
+      border: 1px solid rgba(74,168,224,0.4);
+      color: var(--accent); font-size: 13px; font-weight: 600;
+      letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 6px 16px; border-radius: 20px;
+      width: fit-content; margin-bottom: 28px;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 900; color: #fff;
+      line-height: 1.12; max-width: 700px;
+      animation: fadeUp 0.8s 0.1s ease both;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub {
+      margin-top: 24px; max-width: 520px;
+      color: rgba(255,255,255,0.75); font-size: 1.1rem; line-height: 1.7;
+      animation: fadeUp 0.8s 0.2s ease both;
+    }
+    .hero-btns {
+      display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease both;
+    }
+    .btn-primary {
+      background: var(--sky); color: #fff;
+      padding: 14px 32px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: 15px;
+      transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(45,125,210,0.4);
+    }
+    .btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(45,125,210,0.5); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.5); color: #fff;
+      padding: 14px 32px; border-radius: 8px;
+      text-decoration: none; font-weight: 600; font-size: 15px;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--accent); background: rgba(74,168,224,0.1); }
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 64px; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.4s ease both;
+    }
+    .stat-item { color: #fff; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 900; line-height: 1;
+      color: var(--accent);
+    }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,0.6); margin-top: 4px; letter-spacing: 0.5px; }
+
+    /* ── SECTIONS ── */
+    section { padding: 90px 5%; }
+    .section-tag {
+      font-size: 12px; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--sky); margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800; color: var(--navy); line-height: 1.2;
+    }
+    .section-desc {
+      margin-top: 16px; max-width: 580px;
+      color: var(--gray); font-size: 1rem; line-height: 1.75;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--white); }
+    .services-header { text-align: center; margin-bottom: 56px; }
+    .services-header .section-desc { margin: 16px auto 0; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+    .service-card {
+      background: var(--white);
+      border: 1.5px solid #e0eaf5;
+      border-radius: 16px; padding: 36px 32px;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(26,75,140,0.12);
+      border-color: var(--sky);
+    }
+    .service-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--sky), var(--accent));
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .service-card:hover::before { opacity: 1; }
+    .service-icon {
+      width: 56px; height: 56px; border-radius: 12px;
+      background: var(--light);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 22px;
+    }
+    .service-icon svg { width: 28px; height: 28px; }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem; font-weight: 700;
+      color: var(--navy); margin-bottom: 12px;
+    }
+    .service-card p { color: var(--gray); font-size: 0.93rem; line-height: 1.7; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--light); }
+    .about-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 72px; align-items: center;
+    }
+
+    /* ── ABOUT IMAGE BLOCK ── */
+    .about-img {
+      border-radius: 20px; overflow: hidden;
+      position: relative;
+      box-shadow: 0 20px 60px rgba(26,75,140,0.15);
+      background: #c8ddf0;
+      min-height: 420px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    /*
+      ╔══════════════════════════════════════════════════════════╗
+      ║  📸  HOW TO ADD YOUR ABOUT US PHOTO                     ║
+      ║                                                          ║
+      ║  1. Save your photo as:  images/about.jpg               ║
+      ║     (or about.png / about.webp)                         ║
+      ║                                                          ║
+      ║  2. In the HTML below, find the <img> tag inside        ║
+      ║     <div class="about-img"> and set:                    ║
+      ║     src="images/about.jpg"                              ║
+      ║                                                          ║
+      ║  3. Remove the placeholder div once you have the photo. ║
+      ╚══════════════════════════════════════════════════════════╝
+    */
+
+    .about-img img {
+      width: 100%; height: 420px;
+      object-fit: cover; display: block;
+    }
+
+    /* Placeholder shown until you add a real photo */
+    .about-img-placeholder {
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      width: 100%; min-height: 420px;
+      background: linear-gradient(135deg, #daeaf8 0%, #b8d4ee 100%);
+      color: var(--blue); text-align: center; padding: 40px;
+    }
+    .about-img-placeholder svg { opacity: 0.35; margin-bottom: 16px; }
+    .about-img-placeholder p {
+      font-size: 14px; color: var(--blue); opacity: 0.6;
+      font-weight: 500; line-height: 1.6;
+    }
+    .about-img-placeholder strong { display: block; font-size: 15px; opacity: 0.8; margin-bottom: 6px; }
+
+    .about-badge {
+      position: absolute; bottom: 24px; left: 24px;
+      background: var(--navy); color: #fff;
+      padding: 16px 24px; border-radius: 12px; font-size: 14px;
+    }
+    .about-badge strong {
+      display: block; font-size: 1.6rem; color: var(--accent);
+      font-family: 'Playfair Display', serif;
+    }
+    .about-features { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+    .feature-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 20px; background: #fff;
+      border-radius: 10px; border-left: 3px solid var(--sky);
+    }
+    .feature-row-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--light); border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .feature-row h4 { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+    .feature-row p { font-size: 13px; color: var(--gray); }
+
+    /* ── WHY US ── */
+    .why { background: var(--navy); }
+    .why .section-title { color: #fff; }
+    .why .section-desc { color: rgba(255,255,255,0.6); }
+    .why-header { margin-bottom: 56px; }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px;
+    }
+    .why-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px; padding: 32px 24px; text-align: center;
+      transition: background 0.3s;
+    }
+    .why-card:hover { background: rgba(74,168,224,0.12); }
+    .why-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8rem; font-weight: 900; color: var(--accent); line-height: 1;
+    }
+    .why-card h4 { color: #fff; font-size: 15px; font-weight: 600; margin: 12px 0 8px; }
+    .why-card p { color: rgba(255,255,255,0.5); font-size: 13px; line-height: 1.65; }
+
+    /* ── PROCESS ── */
+    .process { background: var(--white); }
+    .process-header { text-align: center; margin-bottom: 60px; }
+    .process-header .section-desc { margin: 16px auto 0; }
+    .steps {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0; position: relative;
+    }
+    .steps::before {
+      content: ''; position: absolute;
+      top: 36px; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(90deg, var(--sky), var(--accent)); z-index: 0;
+    }
+    .step { text-align: center; padding: 0 20px; position: relative; z-index: 1; }
+    .step-circle {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; font-weight: 900; color: #fff;
+      box-shadow: 0 4px 20px rgba(45,125,210,0.35);
+    }
+    .step h4 { font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .step p { font-size: 13px; color: var(--gray); line-height: 1.65; }
+
+    /* ── CONTACT ── */
+    .contact { background: var(--light); }
+    .contact-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start;
+    }
+    .contact-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 800; color: var(--navy); margin-bottom: 16px;
+    }
+    .contact-info p { color: var(--gray); line-height: 1.75; margin-bottom: 32px; }
+    .contact-items { display: flex; flex-direction: column; gap: 18px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 16px 20px; background: #fff; border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(26,75,140,0.07);
+    }
+    .contact-item-icon {
+      width: 42px; height: 42px; flex-shrink: 0;
+      background: var(--light); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .contact-item-text { font-size: 14px; color: var(--gray); }
+    .contact-item-text strong { display: block; color: var(--navy); font-size: 15px; margin-bottom: 2px; }
+    .contact-form {
+      background: #fff; border-radius: 20px; padding: 40px;
+      box-shadow: 0 8px 40px rgba(26,75,140,0.1);
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label {
+      display: block; font-size: 13px; font-weight: 600;
+      color: var(--navy); margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%; padding: 12px 16px;
+      border: 1.5px solid #dde8f4; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text);
+      background: #f8fbff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--sky);
+      box-shadow: 0 0 0 3px rgba(45,125,210,0.1);
+    }
+    .form-group textarea { resize: vertical; min-height: 120px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-submit {
+      width: 100%; padding: 14px;
+      background: linear-gradient(135deg, var(--blue), var(--sky));
+      color: #fff; border: none; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600;
+      cursor: pointer; transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 20px rgba(26,75,140,0.25);
+    }
+    .form-submit:hover { opacity: 0.92; transform: translateY(-1px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.6);
+      padding: 48px 5% 28px;
+    }
+    .footer-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 24px;
+      padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand { display: flex; align-items: center; gap: 12px; }
+    .footer-logo-icon {
+      width: 40px; height: 40px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--sky), var(--accent));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; font-weight: 900; color: #fff;
+      font-family: 'Playfair Display', serif;
+    }
+    .footer-brand-text { color: #fff; font-size: 16px; font-weight: 600; }
+    .footer-brand-text span { color: var(--accent); }
+    .footer-tagline { color: rgba(255,255,255,0.4); font-size: 12px; }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer-links a {
+      color: rgba(255,255,255,0.5); text-decoration: none; font-size: 14px;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-bottom {
+      padding-top: 24px; display: flex;
+      justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 12px; font-size: 13px;
+    }
+    .footer-bottom a { color: var(--accent); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .about-inner, .contact-inner { grid-template-columns: 1fr; }
+      .steps::before { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 28px; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-icon">Z</div>
+    <span class="nav-logo-text">Zexplore <span>GeoConsult</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Get In Touch</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">
+    <svg width="14" height="14" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a6 6 0 100 12A6 6 0 0010 2zM0 10a10 10 0 1120 0A10 10 0 010 10z"/></svg>
+    Geotechnical Consulting Experts
+  </div>
+  <h1>Better <em>Foundations.</em><br/>Better Future.</h1>
+  <p class="hero-sub">Zexplore GeoConsult delivers precision geotechnical investigation, soil testing, and foundation design services — building the bedrock beneath your most critical projects.</p>
+  <div class="hero-btns">
+    <a href="#services" class="btn-primary">Explore Services</a>
+    <a href="#contact" class="btn-outline">Request Consultation</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">100+</div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-item"><div class="stat-num">50+</div><div class="stat-label">Satisfied Clients</div></div>
+    <div class="stat-item"><div class="stat-num">10+</div><div class="stat-label">Years Experience</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="services-header">
+    <div class="section-tag">What We Do</div>
+    <h2 class="section-title">Our Core Services</h2>
+    <p class="section-desc">Comprehensive geotechnical solutions tailored to the unique demands of your project — from initial investigation to final design.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a4b8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+      </div>
+      <h3>Geotechnical Investigation</h3>
+      <p>Thorough subsurface exploration using advanced drilling, sampling, and in-situ testing techniques to characterize site conditions accurately before construction begins.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a4b8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <h3>Soil Testing</h3>
+      <p>Laboratory and field testing of soil samples including bearing capacity, consolidation, permeability, and shear strength analysis to ensure structural safety.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a4b8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <h3>Foundation Design</h3>
+      <p>Expert design of shallow and deep foundation systems including footings, rafts, piles, and retaining structures tailored to your site's geotechnical profile.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#1a4b8c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+      </div>
+      <h3>Geological Surveys</h3>
+      <p>Detailed mapping and assessment of geological formations, fault lines, and rock quality to support infrastructure, mining, and environmental projects.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-img">
+
+      <!-- ═══════════════════════════════════════════════════════
+           TO ADD YOUR PHOTO:
+           1. Place your image in the  images/  folder
+           2. Rename it  about.jpg  (or .png / .webp)
+           3. DELETE the placeholder div below
+           4. UNCOMMENT the <img> tag below it
+           ═══════════════════════════════════════════════════════ -->
+
+      <!-- PLACEHOLDER — remove this div when you have your photo -->
+      <div class="about-img-placeholder">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#1a4b8c" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        <strong>Your Photo Here</strong>
+        <p>Save your image as<br/><code>images/about.jpg</code><br/>then swap it in below</p>
+      </div>
+
+      <!-- YOUR PHOTO — uncomment and set correct filename when ready -->
+      <!-- <img src="images/about.jpg" alt="Zexplore GeoConsult team at work" /> -->
+
+      <div class="about-badge">
+        <strong>10+</strong>
+        Years of Excellence
+      </div>
+    </div>
+
+    <div class="about-content">
+      <div class="section-tag">About Us</div>
+      <h2 class="section-title">Ground-Level Expertise You Can Build On</h2>
+      <p class="section-desc">Zexplore GeoConsult is a specialist geotechnical consulting firm committed to delivering accurate, reliable, and actionable subsurface intelligence. We bridge the gap between ground conditions and construction certainty.</p>
+      <div class="about-features">
+        <div class="feature-row">
+          <div class="feature-row-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h4>Certified Professionals</h4>
+            <p>Experienced geotechnical engineers and geologists with industry credentials.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-row-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h4>Advanced Equipment</h4>
+            <p>State-of-the-art drilling rigs, CPT equipment, and lab testing apparatus.</p>
+          </div>
+        </div>
+        <div class="feature-row">
+          <div class="feature-row-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div>
+            <h4>Comprehensive Reporting</h4>
+            <p>Detailed technical reports with clear recommendations and design parameters.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <div class="why-header">
+    <div class="section-tag" style="color:var(--accent)">Why Choose Us</div>
+    <h2 class="section-title">The Zexplore Advantage</h2>
+    <p class="section-desc">We combine scientific rigour with practical engineering judgment to deliver solutions that protect your investment and ensure project success.</p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-num">100%</div><h4>Safety Commitment</h4><p>Zero-compromise approach to site safety and data accuracy on every engagement.</p></div>
+    <div class="why-card"><div class="why-num">48hr</div><h4>Fast Turnaround</h4><p>Rapid mobilization and preliminary reporting to keep your project timeline on track.</p></div>
+    <div class="why-card"><div class="why-num">50+</div><h4>Happy Clients</h4><p>Trusted by developers, contractors, and government agencies across regions.</p></div>
+    <div class="why-card"><div class="why-num">IS</div><h4>Code Compliant</h4><p>All investigations and designs adhere to Indian Standards and international norms.</p></div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" id="process">
+  <div class="process-header">
+    <div class="section-tag">How We Work</div>
+    <h2 class="section-title">Our Proven Process</h2>
+    <p class="section-desc">A systematic, transparent workflow that takes you from initial inquiry to final design deliverable with confidence.</p>
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-circle">1</div><h4>Site Assessment</h4><p>Initial consultation and desk study to understand project scope and site history.</p></div>
+    <div class="step"><div class="step-circle">2</div><h4>Field Investigation</h4><p>Borehole drilling, sampling, and in-situ testing as per project requirements.</p></div>
+    <div class="step"><div class="step-circle">3</div><h4>Lab Testing</h4><p>Detailed laboratory analysis of soil and rock samples for engineering properties.</p></div>
+    <div class="step"><div class="step-circle">4</div><h4>Report & Design</h4><p>Comprehensive geotechnical report with foundation design recommendations.</p></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <div class="section-tag">Get In Touch</div>
+      <h2>Let's Discuss Your Project</h2>
+      <p>Have a project that needs geotechnical expertise? Reach out to our team for a consultation. We're ready to help you build on solid ground.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.02 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div class="contact-item-text"><strong>Phone</strong>+91 8981629749 / +91 6290991196</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-item-text"><strong>Email</strong>zexplore.geoconsult@gmail.com</div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2d7dd2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+          </div>
+          <div class="contact-item-text"><strong>Website</strong>www.zexploregeoconsult.com</div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form">
+      <h3 style="font-family:'Playfair Display',serif; font-size:1.4rem; color:var(--navy); margin-bottom:24px;">Send Us a Message</h3>
+      <div class="form-row">
+        <div class="form-group"><label>Full Name</label><input type="text" placeholder="Your name"/></div>
+        <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+      </div>
+      <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com"/></div>
+      <div class="form-group">
+        <label>Service Required</label>
+        <select>
+          <option value="">Select a service</option>
+          <option>Geotechnical Investigation</option>
+          <option>Soil Testing</option>
+          <option>Foundation Design</option>
+          <option>Geological Surveys</option>
+          <option>Other / General Inquiry</option>
+        </select>
+      </div>
+      <div class="form-group"><label>Project Description</label><textarea placeholder="Briefly describe your project and requirements..."></textarea></div>
+      <button class="form-submit" onclick="alert('Thank you! We will get back to you within 24 hours.')">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">
+        <div class="footer-logo-icon">Z</div>
+        <div>
+          <div class="footer-brand-text">Zexplore <span>GeoConsult</span></div>
+          <div class="footer-tagline">Better Foundations. Better Future.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Zexplore GeoConsult. All rights reserved.</span>
+    <span><a href="mailto:zexplore.geoconsult@gmail.com">zexplore.geoconsult@gmail.com</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
